@@ -1,5 +1,3 @@
-# dynamicForms
-
 # Dynamic_forms_react 
     This is the front part built using react
 

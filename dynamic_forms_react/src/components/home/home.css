@@ -1,0 +1,39 @@
+.create-form {
+    margin-bottom: 20px;
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.forms-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.form-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 28%;
+    padding: 20px;
+    text-align: left;
+}
+
+.form-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.form-card .icon-button {
+    display: inline-block;
+    margin: 5px 10px 0 0;
+    color: var(--primary-color);
+    padding: 0;
+    font-size: medium;
+}
