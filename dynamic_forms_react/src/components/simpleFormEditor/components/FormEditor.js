@@ -2,7 +2,7 @@ import React from "react";
 import { ucFirstLetter } from "../../../utils/helper";
 
 const FormEditor = ({ editingField, isFormTitleEdit, handleFormTitleChange, handleFieldChange }) => {
-    
+
     return (
         <div className="editor-container">
             <h2>Form Field Editor</h2>
@@ -13,7 +13,7 @@ const FormEditor = ({ editingField, isFormTitleEdit, handleFormTitleChange, hand
                         <input
                             type="text"
                             name="label"
-                            value={editingField}
+                            value={editingField?.formTitle}
                             onChange={handleFormTitleChange}
                             className="input-field"
                         />
@@ -31,7 +31,7 @@ const FormEditor = ({ editingField, isFormTitleEdit, handleFormTitleChange, hand
                                 className="input-field"
                             />
                         </div>
-                        {editingField.fieldName.startsWith('input') && 
+                        {editingField.fieldName.startsWith('input') &&
                             <div className="input-container box-border">
                                 <label className="input-label">Placeholder</label>
                                 <input

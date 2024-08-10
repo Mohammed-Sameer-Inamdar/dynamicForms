@@ -22,7 +22,6 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    /* gap: 20px; */
     justify-content: space-between;
 }
 
@@ -31,7 +30,6 @@
     margin: 0px 10px 0px 10px;
     display: flex;
     flex-direction: column;
-    /* flex-grow: 0; */
 }
 
 .editor-form-container label {
@@ -48,14 +46,12 @@
 
 .editor-form-field-section h4 {
     line-height: 1rem;
-    /* display: inline-block; */
 }
 
 .title-editor {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* align-items: center; */
 }
 
 .h2 {
@@ -179,7 +175,3 @@
 .dropdown-item:hover {
     background-color: #f0f0f0;
 }
-
-/* .dropdown-menu{
-    position: absolute;
-} */

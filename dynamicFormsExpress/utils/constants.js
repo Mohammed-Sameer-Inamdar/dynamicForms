@@ -1,4 +1,4 @@
-export const APP_PORT = 3000;
+export const APP_PORT = 3001;
 export const ROUTE_NAMES = {
     BASE: "/v1",
 

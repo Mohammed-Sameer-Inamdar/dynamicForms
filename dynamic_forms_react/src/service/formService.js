@@ -2,7 +2,7 @@ import { deleteDataFromService, getDataFromService, postDataFromService } from "
 import { FORM_URLS } from "./config";
 
 export const fetchFormsList = (callback) => {
-    getDataFromService({ url: 'http://localhost:3000' }).then(response => {
+    getDataFromService({ url: FORM_URLS.LIST }).then(response => {
         callback(response);
     }).catch(error => {
         callback(error);
@@ -10,7 +10,7 @@ export const fetchFormsList = (callback) => {
 }
 
 export const updateForm = (id, data, callback) => {
-    postDataFromService({ url: `http://localhost:3000/form/${id}`, data: data })
+    postDataFromService({ url: `${FORM_URLS.BY_ID}${id}`, data: data })
         .then(response => {
             callback(response);
         }).catch(error => {
@@ -19,7 +19,7 @@ export const updateForm = (id, data, callback) => {
 }
 
 export const createForm = (data, callback) => {
-    postDataFromService({ url: 'http://localhost:3000/form/create', data: data })
+    postDataFromService({ url: FORM_URLS.CREATE, data: data })
         .then(response => {
             callback(response);
         }).catch(error => {
@@ -28,7 +28,7 @@ export const createForm = (data, callback) => {
 }
 
 export const formDetails = (id, callback) => {
-    getDataFromService({ url: `http://localhost:3000/form/${id}` })
+    getDataFromService({ url: `${FORM_URLS.BY_ID}${id}` })
         .then(response => {
             callback(response);
         }).catch(error => {
@@ -37,7 +37,7 @@ export const formDetails = (id, callback) => {
 }
 
 export const deleteFrom = (id, callback) => {
-    deleteDataFromService({ url: FORM_URLS.DELETE + id })
+    deleteDataFromService({ url: FORM_URLS.BY_ID + id })
         .then(response => {
             callback(response)
         }).catch(error => {

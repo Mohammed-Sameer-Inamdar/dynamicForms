@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FormContainer from './components/FormContainer';
 import FormEditor from './components/FormEditor';
 
-
 const SimpleFormEditor = () => {
 
     const params = useParams();
@@ -72,8 +71,10 @@ const SimpleFormEditor = () => {
     };
 
     const handleFormTitleChange = (e) => {
-        setEditingField(e.target.value)
-        setFormTitle(e.target.value)
+        let value = e.target.value;
+        setEditingField({ formTitle: value });
+        if (!value) return;
+        setFormTitle(value);
     };
 
     const handleSubmit = (event) => {
@@ -87,11 +88,12 @@ const SimpleFormEditor = () => {
             updateForm(id, data, updateCallBack);
         } else {
             createForm(data, (response) => {
-                const { status, statusText } = response ?? {};
+                const { status, message, statusText } = response ?? {};
                 if (status === 200) {
+                    alert('Form saved successfully');
                     navigate('/');
                 } else {
-                    alert(statusText);
+                    alert(message || statusText);
                 }
             })
         }
@@ -129,7 +131,7 @@ const SimpleFormEditor = () => {
                     <FormContainer formTitle={formTitle} fields={fields} handleEdit={handleEdit} deleteField={deleteField} addField={addField} totalFields={totalFields} handleOnDragEnd={handleOnDragEnd} />
                     <FormEditor editingField={editingField} isFormTitleEdit={isFormTitleEdit} handleFormTitleChange={handleFormTitleChange} handleFieldChange={handleFieldChange} />
                 </div >
-                <div className="form-action">   <button className="btn btn-success">Create Form</button></div>
+                <div className="form-action">   <button className="btn btn-success">Save Form</button></div>
             </form>
         </div >
     );

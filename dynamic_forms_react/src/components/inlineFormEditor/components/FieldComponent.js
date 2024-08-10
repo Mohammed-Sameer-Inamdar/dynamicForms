@@ -7,7 +7,7 @@ const FieldComponent = forwardRef(({ field, isEditView, handleEdit, deleteField,
     const readOnly = isEditView && field.isEditing ? false : true;
     return (
         <div ref={ref} className={isInput ? "editor-form-field-input" : "editor-form-field-section"} {...props}>
-            <div style={{display:'flex', alignItems:'center'}}>
+            <div style={{display:'flex', alignItems:'baseline'}}>
                 {isEditView && <div style={{ display: 'inline-flex' }}><DragIcon width={30} height={20} /></div>}
                 <input
                     onDoubleClick={() => handleEdit(field.fieldId, false)}

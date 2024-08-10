@@ -25,7 +25,7 @@ app.all("*", (req, res) => {
 })
 app.listen(APP_PORT, () => {
     //log into file for tracking
-    console.log("Express listening on port " + APP_PORT + new Date());
+    console.log(`Express listening on port  ${APP_PORT}  ${new Date()}`);
     connectDB();
 })
 export default app;

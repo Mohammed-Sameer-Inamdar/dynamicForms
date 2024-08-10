@@ -53,13 +53,14 @@ const HomePage = () => {
     const onDeleteConfirm = () => {
 
         deleteFrom(deleteFormId, (response) => {
-            const { status, statusText } = response ?? {};
+            const { status, message, statusText } = response ?? {};
             if (status === 200) {
                 loadForms();
                 setDeleteFormId(null);
                 setDeleteModalOpen(false);
+                alert('Deleted successfully')
             } else {
-                alert(statusText);
+                alert(message || statusText);
             }
 
         })

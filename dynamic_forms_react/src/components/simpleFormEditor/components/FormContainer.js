@@ -6,7 +6,7 @@ export const FormContainer = ({ formTitle, fields, handleEdit, deleteField, addF
 
     return (
         <div className="form-container">
-            <h2 className="form-title">{formTitle}<span style={{ marginLeft: 10 }} onClick={() => handleEdit(formTitle, true)}><EditIcon width={20} height={20} tintColor={'#007bff'} /></span></h2>
+            <h2 className="form-title">{formTitle}<span style={{ marginLeft: 10 }} onClick={() => handleEdit({ formTitle: formTitle }, true)}><EditIcon width={20} height={20} tintColor={'#007bff'} /></span></h2>
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="fields">
                     {(provided) => (

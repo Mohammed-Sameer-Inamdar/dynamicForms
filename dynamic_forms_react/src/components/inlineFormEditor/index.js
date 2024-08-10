@@ -139,7 +139,8 @@ const InlineFormEditor = () => {
         const fieldName = isSection ? `section_${id}` : `input_${id}`;
         const placeholder = `Placeholder`;
         const position = fieldIdCounter;
-        setFields([...fields, { fieldId: id, fieldType: type, fieldName: fieldName, fieldLabel: label, fieldPlaceholder: placeholder, fieldPosition: position }]);
+        const newFields = [...fields, { fieldId: id, fieldType: type, fieldName: fieldName, fieldLabel: label, fieldPlaceholder: placeholder, fieldPosition: position }];
+        setFields(newFields.map(field => ({ ...field, isEditing: false })));
         setFieldIdCounter(fieldIdCounter + 1);
         if (!isSection) setTotalFields(totalFields + 1);
         setShowDropdown(false);
