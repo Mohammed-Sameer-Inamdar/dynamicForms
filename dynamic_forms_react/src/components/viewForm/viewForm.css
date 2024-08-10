@@ -24,11 +24,12 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
-    margin-bottom: 10px;
 }
 
-.view-form-field {
-    flex: 1 1 calc(50% - 20px); /* 2 columns */
+.view-form-field-input {
+    
+    flex: 1 1 calc(40%); 
+    margin: 0px 20px 0px 20px ;
     display: flex;
     flex-direction: column;
     flex-grow: 0;
@@ -36,5 +37,16 @@
 
 .view-form-container label {
     margin-bottom: 8px;
-    font-weight: bold;
+    font-weight:500;
+}
+
+.view-form-field-section{
+    width: 100%;
+    text-align: start;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.view-form-field-section h4 {
+    line-height: 1rem;
+    display: inline-block;
 }

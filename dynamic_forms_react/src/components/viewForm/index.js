@@ -8,7 +8,6 @@ function ViewForm() {
     const params = useParams();
     const { id } = params ?? {};
 
-
     const [formData, setFormData] = useState()
 
     const fetchFormDetails = useCallback(() => {
@@ -54,19 +53,22 @@ function ViewForm() {
             <h2>{formData?.formTitle}</h2>
             <form onSubmit={handleSubmit}>
                 <div className="view-form-fields">
-                    {formData?.fields.map((field, index) => (
-                        <div key={index} className="view-form-field">
-                            <label>{field.fieldLabel}</label>
-                            <input
-                                onChange={handleValueChange}
-                                type={field.fieldType}
-                                placeholder={field.fieldPlaceholder}
-                                name={field.fieldName}
-                            />
-                        </div>
-                    ))}
+                    {formData?.fields.map((field, index) => field.fieldName.startsWith('input') ?
+                        (
+                            <div key={index} className="view-form-field-input">
+                                <label>{field.fieldLabel}</label>
+                                <input
+                                    onChange={handleValueChange}
+                                    type={field.fieldType}
+                                    placeholder={field.fieldPlaceholder}
+                                    name={field.fieldName}
+                                />
+                            </div>
+                        ) : (
+                            <div className="view-form-field-section"><h4>{field.fieldLabel}</h4></div>
+                        ))}
                 </div>
-                <button type="submit" className='btn btn-success' >Submit</button>
+                <button type="submit" className='btn btn-success' style={{marginTop:20}} >Submit</button>
             </form>
         </div>
     );

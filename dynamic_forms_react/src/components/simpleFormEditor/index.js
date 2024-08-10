@@ -6,7 +6,7 @@ import FormContainer from './components/FormContainer';
 import FormEditor from './components/FormEditor';
 
 
-const DynamicForm = () => {
+const SimpleFormEditor = () => {
 
     const params = useParams();
     const { id } = params ?? {};
@@ -18,6 +18,7 @@ const DynamicForm = () => {
     const [fieldIdCounter, setFieldIdCounter] = useState(1);
     const [formTitle, setFormTitle] = useState('Untitled Form');
     const [isFormTitleEdit, setFormTitleEdit] = useState(false);
+    const [totalFields, setTotalFields] = useState(0);
 
     const fetchFormDetails = useCallback(() => {
         if (id)
@@ -26,7 +27,10 @@ const DynamicForm = () => {
                 if (status === 200) {
                     setFormTitle(data?.formTitle);
                     setFields(data?.fields)
-                    setFieldIdCounter(data?.fields?.length + 1)
+                    const maxFieldId = data.fields.length > 0 ? Math.max(...data.fields.map(field => field.fieldId)) : 0;
+                    setFieldIdCounter(maxFieldId + 1);
+                    const inputFieldCount = fields.filter(field => field.fieldName.startsWith('input')).length;
+                    setTotalFields(inputFieldCount);
                 } else {
                     alert(statusText);
                 }
@@ -38,17 +42,21 @@ const DynamicForm = () => {
     }, [id])
 
     const addField = (type) => {
+        const isSection = type === 'section';
         const id = fieldIdCounter;
         const label = `Label`;
-        const placeholder = `Place holder`;
+        const fieldName = isSection ? `section_${id}` : `input_${id}`;
+        const placeholder = `Placeholder`;
         const position = fieldIdCounter;
-        setFields([...fields, { fieldId: id, fieldType: type, fieldName: `input_${id}`, fieldLabel: label, fieldPlaceholder: placeholder, fieldPosition: position }]);
+        setFields([...fields, { fieldId: id, fieldType: type, fieldName: fieldName, fieldLabel: label, fieldPlaceholder: placeholder, fieldPosition: position }]);
+        if (!isSection) setTotalFields(totalFields + 1);
         setFieldIdCounter(fieldIdCounter + 1);
     };
 
-    const deleteField = (id) => {
-        setFields(fields.filter(field => field.fieldId !== id));
-        setFieldIdCounter(fieldIdCounter - 1)
+    const deleteField = (deleteField) => {
+        setFields(fields.filter(field => field.fieldId !== deleteField.fieldId));
+        setFieldIdCounter(fieldIdCounter - 1);
+        if (deleteField.fieldName.startsWith('input')) setTotalFields(totalFields - 1);
     };
 
     const handleEdit = (field, isFormEdit = false) => {
@@ -58,6 +66,7 @@ const DynamicForm = () => {
 
     const handleFieldChange = (e) => {
         const { name, value } = e.target;
+
         setEditingField({ ...editingField, [name]: value });
         setFields(fields.map(field => (field.fieldId === editingField.fieldId ? { ...field, [name]: value } : field)));
     };
@@ -69,13 +78,16 @@ const DynamicForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = { formTitle: formTitle, fields: fields };
-
+        const resetFields = fields.map((field, index) => ({
+            ...field,
+            fieldId: index + 1
+        }));
+        const data = { formTitle: formTitle, fields: resetFields };
         if (id) {
             updateForm(id, data, updateCallBack);
         } else {
             createForm(data, (response) => {
-                const { status, statusText, data } = response ?? {};
+                const { status, statusText } = response ?? {};
                 if (status === 200) {
                     navigate('/');
                 } else {
@@ -92,18 +104,29 @@ const DynamicForm = () => {
             setFormTitle('Untitled Form');
             setFields([])
             fetchFormDetails();
+            alert('Form saved successfully');
         } else {
             alert(message || statusText)
         }
     }
 
+    const handleOnDragEnd = (result) => {
+
+        if (!result.destination) return;
+
+        const items = Array.from(fields);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+        setFields(items);
+    }
+
+
     return (
         <div className="container">
             <form onSubmit={handleSubmit}>
-
-                <h1 className="heading">Create New Form</h1>
+                <h1 style={{ textAlign: 'center' }} >Create New Form</h1>
                 <div className="flex-container">
-                    <FormContainer formTitle={formTitle} fields={fields} handleEdit={handleEdit} deleteField={deleteField} addField={addField} fieldIdCounter={fieldIdCounter} />
+                    <FormContainer formTitle={formTitle} fields={fields} handleEdit={handleEdit} deleteField={deleteField} addField={addField} totalFields={totalFields} handleOnDragEnd={handleOnDragEnd} />
                     <FormEditor editingField={editingField} isFormTitleEdit={isFormTitleEdit} handleFormTitleChange={handleFormTitleChange} handleFieldChange={handleFieldChange} />
                 </div >
                 <div className="form-action">   <button className="btn btn-success">Create Form</button></div>
@@ -112,4 +135,4 @@ const DynamicForm = () => {
     );
 };
 
-export default DynamicForm;
+export default SimpleFormEditor;

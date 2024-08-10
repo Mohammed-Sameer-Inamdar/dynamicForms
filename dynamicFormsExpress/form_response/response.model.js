@@ -15,7 +15,7 @@ const FormResponse = Schema(
                 fieldLabel: { type: String, required: true },
                 fieldPlaceholder: { type: String },
                 fieldPosition: { type: Number, required: true },
-                fieldValue: { type: String, required: true },
+                fieldValue: { type: String },
             }
         ]
     },

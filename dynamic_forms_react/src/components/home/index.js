@@ -26,11 +26,19 @@ const HomePage = () => {
         loadForms();
     }, [])
 
-    const handleNewForm = () => {
-        navigate('form/create');
+    const handleNewForm = (isInline) => {
+        if (isInline) {
+            navigate('form/create-inline');
+        } else {
+            navigate('form/create');
+        }
     }
+
     const handleEdit = (id) => {
         navigate(`form/${id}/edit`);
+    }
+    const handleInlineEdit = (id) => {
+        navigate(`form/${id}/edit-inline`);
     }
 
     const handleView = (id) => {
@@ -63,9 +71,12 @@ const HomePage = () => {
     }
 
     return (
-        <div className="container">
+        <div className="home-container">
             <h1>Welcome to Forms World</h1>
-            <button className="create-form" onClick={handleNewForm}>Create New Form</button>
+            <span>
+                <button className="btn btn-primary" onClick={() => handleNewForm(false)}>New Form Simple</button>
+                <button className="btn btn-primary" onClick={() => handleNewForm(true)}>New Form Inline</button>
+            </span>
             <h1>Forms</h1>
 
             <div className="forms-container">
@@ -74,7 +85,8 @@ const HomePage = () => {
                         <h3>{form?.formTitle}</h3>
                         <button className='btn icon-button' onClick={() => handleView(form._id)}>View</button>
                         <button className='btn icon-button' onClick={() => handleEdit(form._id)}>Edit</button>
-                        <a onClick={() => handleDelete(form._id)} style={{ color: 'red' }}>Delete</a>
+                        <button className='btn icon-button' onClick={() => handleInlineEdit(form._id)}>Inline Edit</button>
+                        <button className='btn icon-button' onClick={() => handleDelete(form._id)} style={{ color: 'red' }}>Delete</button>
                     </div>
                 ))}
             </div>
