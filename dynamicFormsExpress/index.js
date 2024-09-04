@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.all('/v1', (req, res) => {
+    fetchData();
     return Respond(res, 200, "Success");
 })
 

@@ -8,7 +8,7 @@ const FormEditor = ({ editingField, isFormTitleEdit, handleFormTitleChange, hand
             <h2>Form Field Editor</h2>
             {editingField && (
                 isFormTitleEdit ? (
-                    <div className="input-container box-border">
+                    <div className="input-container">
                         <label className="input-label">Title</label>
                         <input
                             type="text"
@@ -21,7 +21,7 @@ const FormEditor = ({ editingField, isFormTitleEdit, handleFormTitleChange, hand
                 ) :
                     (<div>
                         <h3>{ucFirstLetter(editingField?.fieldType)}</h3>
-                        <div className="input-container box-border">
+                        <div className="input-container">
                             <label className="input-label">Title</label>
                             <input
                                 type="text"
@@ -32,7 +32,7 @@ const FormEditor = ({ editingField, isFormTitleEdit, handleFormTitleChange, hand
                             />
                         </div>
                         {editingField.fieldName.startsWith('input') &&
-                            <div className="input-container box-border">
+                            <div className="input-container">
                                 <label className="input-label">Placeholder</label>
                                 <input
                                     type="text"

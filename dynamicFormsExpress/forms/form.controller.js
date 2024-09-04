@@ -5,6 +5,12 @@ import { Respond } from "../utils/helper.js";
 import Form from "./form.model.js"
 
 export const listForm = (req, res) => {
+    const page = req.query.page;
+    const limit = 10;
+    let offset = 0;
+    if (page) {
+        offset = (page - 1) * limit;
+    }
 
     Form.aggregate([
         { $sort: { formCreatedAt: -1 } },
@@ -29,6 +35,8 @@ export const listForm = (req, res) => {
                 ]
             }
         },
+        { skip: offset },
+        { limit: limit },
         {
             $project: {
                 _id: 1,
