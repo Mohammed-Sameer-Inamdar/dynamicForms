@@ -32,4 +32,4 @@ This project is a full-stack web application for creating and managing dynamic f
 
 Watch a demo of the project here:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/fsAwSmDoKDM?si=osPyTTO8QNZjzMCH" frameborder="0" allowfullscreen></iframe>
+[![Watch the demo](https://img.youtube.com/vi/fsAwSmDoKDM/0.jpg)](https://www.youtube.com/watch?v=fsAwSmDoKDM)
